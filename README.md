@@ -33,3 +33,4 @@ npm run preview
 ## Notes
 - Uses auto dark mode via `prefers-color-scheme`.
 - Clean, accessible components with subtle motion.
+trigger build
