@@ -1,28 +1,28 @@
 import Magnetic from "./components/Magnetic";
 import GooDefs from "./components/GooDefs";
 import ParallaxBlobs from "./components/ParallaxBlobs";
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, ExternalLink, Code2, Sparkles, ArrowRight } from 'lucide-react'
-import projects from './projects.js'
+import React from "react";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail, ExternalLink, Code2, Sparkles, ArrowRight } from "lucide-react";
+import projects from "./projects.js";
 
 const skills = [
-  'C++', 'Java', 'JavaScript', 'Node.js', 'Git', 'HTML', 'CSS',
-  'Python', 'SQL', 'React','VSCode','CLion'
-]
-
+  "C++", "Java", "JavaScript", "Node.js", "Git", "HTML", "CSS",
+  "Python", "SQL", "React", "VSCode", "CLion"
+];
 
 export default function App() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-white to-slate-50 text-slate-900 dark:from-slate-950 dark:to-slate-900 dark:text-slate-100">
-      
-      {/* 👇 SVG filter definitions, invisible but available to the whole page */}
-      <GooDefs />     
-
-      {/* 👇 background blobs that use the goo filter */}
+    <div
+      className="relative min-h-screen bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: "url('/concrete.jpg?v=3')" }}
+    >
+      <div className="absolute inset-0 bg-white/60 z-0"></div>
+      {/* background blobs & filter */}
+      <GooDefs />
       <ParallaxBlobs />
 
-      {/* 👇 all your actual content above blobs */}
+      {/* content above blobs */}
       <div className="relative z-10">
         <Header />
         <main>
@@ -35,13 +35,17 @@ export default function App() {
         <Footer />
       </div>
     </div>
-  )
+  );
 }
+
 
 function Header() {
   return (
     <header className="sticky top-0 z-50 backdrop-blur bg-white/70 dark:bg-slate-950/60 border-b border-slate-200/60 dark:border-slate-800">
       <nav className="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex items-center gap-4">
+        <a href="#home" className="flex items-center gap-2 font-semibold">
+        <img src="/laptop.png" alt="Logo" className="w-6 h-6" />
+        </a>
         <a href="#home" className="flex items-center gap-2 font-semibold">
           <Code2 className="h-5 w-5" />
           <span>AJ Nichols</span>
@@ -69,6 +73,7 @@ function Hero() {
   return (
     <section id="home" className="mx-auto max-w-6xl px-4 sm:px-6 py-20">
       <div className="grid md:grid-cols-2 gap-10 items-center">
+        {/* LEFT: intro text */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -82,8 +87,8 @@ function Hero() {
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
             Hi, I’m AJ.
           </h1>
-          <div className="h-4 w-4">
-            <span>she/her</span>
+          <div className="inline-flex items-center gap-2 rounded-2xl border border-slate-300 dark:border-slate-700 px-2 py-1 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <a>she/her</a>
           </div>
           <p className="text-slate-600 dark:text-slate-300 text-lg">
             Terminally addicted to learning new skills and building cool stuff.<br />
@@ -116,17 +121,35 @@ function Hero() {
           </div>
         </motion.div>
 
+        {/* RIGHT: photo + featured stack */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="relative"
+          className="relative flex flex-col items-center space-y-6"
         >
-          <div className="aspect-square rounded-3xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-100 to-white dark:from-slate-900 dark:to-slate-800 p-2">
+          {/* 👇 Your photo */}
+          <a href="#about" className="block w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-slate-300 dark:border-slate-700 shadow-lg transition duration-500 hover:scale-105">
+  <img
+    src="/me.jpeg"
+    alt="AJ Nichols"
+    className="object-cover w-full h-full grayscale hover:grayscale-0"
+  />
+</a>
+
+
+          {/* Featured Stack card */}
+          <div className="aspect-square rounded-3xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-100 to-white dark:from-slate-900 dark:to-slate-800 p-2 w-64">
             <div className="h-full w-full rounded-2xl grid place-items-center text-center px-6">
-              <p className="text-sm uppercase tracking-widest text-slate-500">Featured Stack</p>
-              <p className="text-4xl font-black">C++ • JS • Lua</p>
-              <p className="mt-2 text-slate-600 dark:text-slate-300">VS Code • Tailwind • Git</p>
+              <p className="text-sm uppercase tracking-widest text-slate-500">
+                Featured Stack
+              </p>
+              <p className="text-2xl sm:text-3xl font-black">
+                React • Node.js • Tailwind
+              </p>
+              <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm">
+                C++ • Java • Git
+              </p>
             </div>
           </div>
         </motion.div>
@@ -134,6 +157,7 @@ function Hero() {
     </section>
   )
 }
+
 
 function Projects() {
   return (
@@ -229,7 +253,7 @@ function About() {
           <h3 className="font-semibold">Highlights</h3>
           <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
             <li>• Built an anonymous posting site with moderation controls</li>
-            <li>• Implemented a robust C++ linked-list polynomial class</li>
+            <li>• Implemented a locally-hosted, interactive browser homepage</li>
             <li>• Designed multiple class projects with Tailwind</li>
           </ul>
         </div>

@@ -9,6 +9,14 @@
 html, body, #root {
   height: 100%;
 }
+
+.bg-photo {
+  background-image: url('/concrete.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* cool parallax effect */
+}
+
 @keyframes wobble {
   0%   { border-radius: 15% 85% 70% 30% / 25% 75% 25% 75%; }
   25%  { border-radius: 80% 20% 40% 60% / 60% 20% 80% 40%; }
