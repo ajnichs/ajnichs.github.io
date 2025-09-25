@@ -245,9 +245,6 @@ function About() {
             <a href="https://www.tinasllc.com" className="underline hover:opacity-80"><strong> t.i.n.a.s. LLC</strong></a>, as a 
             pitchwriter and content creator.      
           </p>
-          <p> <br />
-            I look forward to learing new skills and collaborating on exciting projects!
-          </p>
         </div>
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
           <h3 className="font-semibold">Highlights</h3>
