@@ -53,13 +53,13 @@ export default function App() {
     pause={1500}
     loop={true}
     start={booted}   // ✅ only starts after boot screen is done
-    className="block text-2xl sm:text-3xl font-mono text-green-500"
+    className="drop-shadow-[0_0_3px_#3F853D] block text-2xl sm:text-3xl font-mono text-green-500"
   />
   <TypingLine
     text="Developer"
     speed={60}
     start={booted}
-    className="block mt-1 text-xs sm:text-sm text-green-700"
+    className="drop-shadow-[0_0_2px_#073811] block mt-1 text-xs sm:text-sm text-green-700"
   />
 </header>
 
@@ -72,7 +72,7 @@ export default function App() {
               alt="AJ sprite portrait"
               className="w-48 md:w-64 
                          drop-shadow-[0_0_12px_#075915] mix-blend-exclusion
-                         hover:drop-shadow-[0_0_15px_#3F853D] hover:scale-110 hover:brightness-110
+                         hover:drop-shadow-[0_0_15px_#3F853D] hover:scale-105 hover:brightness-110
                          transition duration-300 hover:blend-"
             />
           </div>
@@ -112,7 +112,7 @@ export default function App() {
 
         {/* Projects anchor */}
         <section id="projects" className="mx-auto w-full max-w-4xl px-4 pb-8 sm:px-6">
-          <h2 className="mb-3 text-base sm:text-lg tracking-widest text-green-600">PROJECTS</h2>
+          <h2 className="mb-3 text-base sm:text-lg tracking-widest text-green-500 drop-shadow-[0_0_3px_#3F853D]">PROJECTS</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm text-green-200">
             <li>Better-Left-Unread — Node + SQLite micro-site</li>
             <li>Polynomial Class (C++) — linked-list representation with ops</li>

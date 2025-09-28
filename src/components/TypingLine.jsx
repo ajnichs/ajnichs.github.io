@@ -52,7 +52,7 @@ export default function TypingLine({
       {shown}
       {showCursor && (
         <span
-          className={`ml-1 inline-block h-[1.1em] w-[0.6ch] align-[-0.15em] bg-current ${
+          className={`drop-shadow-[0_0_2px_#073811] ml-1 inline-block h-[1.1em] w-[0.6ch] align-[-0.15em] bg-current ${
             blink ? "opacity-90" : "opacity-10"
           }`}
         />
