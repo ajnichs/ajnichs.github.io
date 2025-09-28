@@ -81,7 +81,7 @@ export default function App() {
           <div className="flex flex-col gap-4">
             <p className="text-sm text-green-200">
               Hi!  I'm Amanda (or AJ). I'm a computer science student based in Pennsylvania who loves coding, crpyto, and all that other stuff. 
-              <b> This portfolio is currently under construction.</b>
+              <b> This portfolio is currently under construction.</b> Built using Tailwind CSS and React.
             </p>
 
             <div className="grid gap-3">
@@ -114,7 +114,7 @@ export default function App() {
         <section id="projects" className="mx-auto w-full max-w-4xl px-4 pb-8 sm:px-6">
           <h2 className="mb-3 text-base sm:text-lg tracking-widest text-green-500 drop-shadow-[0_0_3px_#3F853D]">PROJECTS</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm text-green-200">
-            <li>Better-Left-Unread — Node + SQLite micro-site</li>
+            <li>Better-Left-Unread — Node.js + SQLite anonymous message board micro-site</li>
             <li>Polynomial Class (C++) — linked-list representation with ops</li>
             <li>Matrix-Style Static Page — cyber aesthetic experiment</li>
           </ul>
