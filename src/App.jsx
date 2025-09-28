@@ -8,7 +8,7 @@ import { Github, Linkedin, Mail, FileText } from 'lucide-react'
 const LINKS = {
   resume: `${import.meta.env.BASE_URL}resume.pdf`,
   github: 'https://github.com/ajnichs',
-  linkedin: 'https://www.linkedin.com/ajnichs',
+  linkedin: 'https://www.linkedin.com/in/ajnichs',
   email: 'mailto:awjnichs@gmail.com',
   projects: '#projects', // <- added so the button works
 }
