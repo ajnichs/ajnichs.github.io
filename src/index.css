@@ -2,9 +2,144 @@
 @tailwind components;
 @tailwind utilities;
 
-/* subtle scanline overlay */
-:root { --scanline: linear-gradient(rgba(75, 173, 76, 0.09) 1px, transparent 1px); }
-body { background-image: var(--scanline); background-size: 100% 3px; }
+/* Retro screen visual effects: scanlines, CRT curvature, chromatic aberration */
+:root {
+	/* stronger, box-TV like scanlines */
+	--scanline-color: rgba(18, 115, 40, 0.26); /* darker green tint */
+	--scanline-height: 3px; /* thicker lines */
+	--scanline-gap: 6px; /* larger gap between lines */
+	--scanline-opacity: 0.72; /* more pronounced */
+	--crt-vignette-strength: 0.72;
+	/* chromatic opacity removed */
+}
+
+/* Scanlines overlay: put a .scanlines element inside the screen bezel */
+.scanlines {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background-image: repeating-linear-gradient(
+		to bottom,
+		var(--scanline-color) 0,
+		var(--scanline-color) var(--scanline-height),
+		transparent var(--scanline-height),
+		transparent calc(var(--scanline-height) + var(--scanline-gap))
+	);
+	/* use overlay so the chroma layers color the scanlines */
+	mix-blend-mode: overlay;
+	opacity: 0; /* default off; enabled via .scan-enabled on bezel */
+	transition: opacity 220ms ease;
+	will-change: opacity, background-position, transform;
+}
+
+/* When enabled, make scanlines visible */
+.scan-enabled .scanlines { opacity: var(--scanline-opacity); }
+
+/* CRT curvature / vignette mask */
+.crt-mask {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.06) 60%, rgba(0,0,0,var(--crt-vignette-strength)) 100%);
+	mix-blend-mode: multiply;
+	opacity: 1;
+}
+
+/* Glass glare and top sheen to make the screen reflection more visible */
+.glass-glare {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	/* subtle brightening that still lets underlying chroma tint through */
+	background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02) 40%, rgba(255,255,255,0.06));
+	mix-blend-mode: screen; /* brightens and keeps chroma visible */
+	opacity: 0.85;
+}
+
+.glass-top {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: radial-gradient(1200px 400px at 15% 20%, rgba(255,255,255,0.14), transparent 18%), linear-gradient(45deg, rgba(255,255,255,0.06), transparent 40%);
+	opacity: 0.18; /* low - acts as a visible sheen */
+	filter: blur(2px);
+	mix-blend-mode: normal;
+}
+
+/* Chromatic aberration - subtle colored fringe using two layers */
+.chromatic-left, .chromatic-right {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	mix-blend-mode: screen;
+	opacity: 0; /* enabled via .scan-enabled */
+	transition: opacity 220ms ease, transform 220ms ease;
+}
+.scan-enabled .chromatic-left,
+.scan-enabled .chromatic-right { opacity: 0; }
+.chromatic-left {
+	background: linear-gradient(90deg, rgba(255,50,100,0.9), transparent 30%);
+	transform: translateX(var(--chroma-offset-left, -2px)) scale(1.01);
+	filter: blur(var(--chromatic-blur, 6px)) saturate(1.1);
+}
+.chromatic-right {
+	background: linear-gradient(270deg, rgba(60,160,255,0.9), transparent 30%);
+	transform: translateX(var(--chroma-offset-right, 2px)) scale(1.01);
+	filter: blur(var(--chromatic-blur, 6px)) saturate(0.95);
+}
+
+/* small subtle rolling/flicker to make the display feel alive */
+@keyframes crt-roll {
+	0% { background-position: 0 0; }
+	100% { background-position: 0 40px; }
+}
+.scan-enabled .scanlines { opacity: var(--scanline-opacity); animation: crt-roll 6s linear infinite, scanline-flicker 2.8s steps(6) infinite, scan-jitter 0.45s linear infinite; }
+
+/* subtle opacity flicker for scanlines to mimic tube instability */
+@keyframes scanline-flicker {
+	0% { opacity: calc(var(--scanline-opacity) * 0.85); }
+	40% { opacity: calc(var(--scanline-opacity) * 1.05); }
+	100% { opacity: calc(var(--scanline-opacity) * 0.85); }
+}
+
+/* chromatic micro-shift to enhance the fringing effect */
+/* chroma shift animation removed */
+
+/* chroma shift right animation removed */
+
+/* jitter for scanlines to mimic heavy tube instability */
+@keyframes scan-jitter {
+	0% { transform: translateY(0); }
+	20% { transform: translateY(-1.5px); }
+	40% { transform: translateY(0); }
+	60% { transform: translateY(1.5px); }
+	80% { transform: translateY(0); }
+	100% { transform: translateY(0); }
+}
+
+/* chromatic micro-jitter to accentuate fringe on heavy displays */
+/* chroma jitter animation removed */
+
+/* chroma jitter right animation removed */
+
+/* Mobile: reduce intensity so the effect isn't overpowering on small screens */
+@media (max-width: 640px) {
+	:root {
+		--scanline-height: 3px;
+		--scanline-gap: 4px;
+		--scanline-opacity: 0.3;
+		--chromatic-opacity: 0.12;
+		--crt-vignette-strength: 0.5;
+	}
+	/* slow the roll and reduce jitter amplitude on mobile */
+	.scan-enabled .scanlines { animation: crt-roll 10s linear infinite, scanline-flicker 3.6s steps(4) infinite, scan-jitter 0.9s linear infinite; }
+	.scan-enabled .chromatic-left, .scan-enabled .chromatic-right { animation-duration: 5s; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.scanlines, .chromatic-left, .chromatic-right { animation: none !important; }
+}
 
 /* mobile: ensure images shrink nicely */
 img { max-width: 100%; height: auto; }
